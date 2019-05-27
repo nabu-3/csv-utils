@@ -1,0 +1,47 @@
+{
+    "type": "library",
+    "name": "nabu-3/csv-utils",
+    "description": "nabu-3 CSV Utils",
+    "keywords": [ "nabu-3", "nabu", "class", "library", "minimal", "csv", "utils", "tools" ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/nabu-3/csv-utils"
+        }
+    ],
+    "version": "3.0.0",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Rafael Gutierrez",
+            "email": "rgutierrez@nabu-3.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/nabu-3/csv-utils/issues",
+        "email": "contact@nabu-3.com",
+        "source": "https://github.com/nabu-3/csv-utils"
+    },
+    "require": {
+        "php": ">=7.2",
+        "ext-mbstring": ">=7.2",
+        "nabu-3/minimal-class": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ],
+        "files": [
+            "src/globals.php"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
+        ]
+    }
+}
