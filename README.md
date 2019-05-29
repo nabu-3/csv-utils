@@ -19,3 +19,4 @@ To use this package, you only need to include the autoload file of vendor folder
 ```php
 require_once 'vendor/autoload.php'
 ```
+## Parse a CSV file
