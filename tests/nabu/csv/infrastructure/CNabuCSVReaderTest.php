@@ -75,7 +75,7 @@ class CNabuCSVReaderTest extends TestCase
      * @test checkBeforeParse
      * @test parse
      */
-    public function testParse()
+    public function testParseAsSingleArray()
     {
         $reader = new CNabuCSVReader(
             __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'basic-csv-file.csv',
@@ -99,6 +99,59 @@ class CNabuCSVReaderTest extends TestCase
         for ($i = 1; $i < 4; $i++) {
             for ($j = 1; $j < 4; $j++) {
                 $this->assertTrue($data->getItem($i - 1)->isValueEqualTo("value_$j", "value $i.$j"));
+            }
+        }
+    }
+
+    /**
+     * @test __construct
+     * @test getValidMIMETypes
+     * @test customFileValidation
+     * @test openSourceFile
+     * @test closeSourceFile
+     * @test createDataListInstance
+     * @test getSourceDataAsArray
+     * @test checkBeforeParse
+     * @test parse
+     */
+    public function testParseAsIndexedArray()
+    {
+        $reader = new CNabuCSVReader(
+            __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'basic-csv-file.csv',
+            array(
+                'col_1' => 'value_1',
+                'col_2' => 'value_2',
+                'col_3' => 'value_3'
+            ),
+            array(
+                'value_1', 'value_2'
+            ),
+            false, 0, 1
+        );
+        $this->assertInstanceOf(CNabuCSVReader::class, $reader);
+        $this->assertInstanceOf(INabuDataListReader::class, $reader);
+        $this->assertInstanceOf(INabuDataListFileReader::class, $reader);
+        $this->assertSame(',', $reader->getDelimiter());
+        $this->assertSame('"', $reader->getEnclosure());
+
+        $reader->setIndexField('value_1');
+        $this->assertSame('value_1', $reader->getIndexField());
+
+        $reader->setDelimiter(',');
+        $this->assertSame(',', $reader->getDelimiter());
+
+        $reader->setEnclosure('"');
+        $this->assertSame('"', $reader->getEnclosure());
+
+        $reader->setEscapeCharacter('\\');
+        $this->assertSame('\\', $reader->getEscapeCharacter());
+
+        $data = $reader->parse();
+        $this->assertSame(3, count($data));
+
+        for ($i = 1; $i < 4; $i++) {
+            for ($j = 1; $j < 4; $j++) {
+                $this->assertTrue($data->getItem("value $i.1")->isValueEqualTo("value_$j", "value $i.$j"));
             }
         }
     }
