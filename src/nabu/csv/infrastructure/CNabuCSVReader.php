@@ -23,6 +23,8 @@ namespace nabu\csv\infrastructure;
 
 use nabu\csv\data\CNabuCSVData;
 
+use nabu\csv\infrastructure\traits\TNabuCSVParserAttributes;
+
 use nabu\data\interfaces\INabuDataList;
 
 use nabu\infrastructure\reader\CNabuAbstractDataListFileReader;
@@ -36,14 +38,10 @@ use nabu\infrastructure\reader\CNabuAbstractDataListFileReader;
  */
 class CNabuCSVReader extends CNabuAbstractDataListFileReader
 {
+    use TNabuCSVParserAttributes;
+
     /** @var string|null Index field name. */
     protected $index_field = null;
-    /** @var string|null CSV Field delimiter. */
-    protected $delimiter = ',';
-    /** @var string|null CSV Field enclosure. */
-    protected $enclosure = '"';
-    /** @var string|null CSV Escape Character. */
-    protected $escapeCharacter = "\\";
 
     /** @var int CSV File handler. */
     private $csv_handler = 0;
