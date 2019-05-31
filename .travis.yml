@@ -1,0 +1,27 @@
+dist: trusty
+
+language: php
+
+php:
+    - 7.2
+    - 7.3
+
+addons:
+    sonarcloud:
+        organization: "nabu-3-github"
+
+cache:
+    directories:
+        - $HOME/.composer
+        - $HOME/.sonar
+        - $HOME/.sonarscanner
+        - $HOME/build/nabu-3/csv-utils/vendor
+
+install:
+    - travis_retry composer install
+
+script:
+    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+    - git fetch --no-tags https://github.com/nabu-3/csv-utils.git +refs/heads/master:refs/remotes/origin/master
+    - ./vendor/bin/phpunit
+    - sonar-scanner

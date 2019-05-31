@@ -1,0 +1,5 @@
+<testsuites>
+    <testsuite name="CSV Utils Tests">
+        <directory>tests</directory>
+    </testsuite>
+</testsuites>
